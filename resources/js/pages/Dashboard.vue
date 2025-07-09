@@ -474,8 +474,8 @@ const getMarkerSize = (percentage) => {
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-semibold text-gray-900">Recent Orders</h3>
                     <div class="flex space-x-2">
-                        <button class="text-sm text-gray-600 hover:text-gray-900">Filter</button>
-                        <button class="text-sm text-gray-600 hover:text-gray-900">See all</button>
+                        <button class="text-sm text-gray-600 hover:text-gray-900 border-2 p-2">Filter</button>
+                        <button class="text-sm text-gray-600 hover:text-gray-900 border-2 p-2">See all</button>
                     </div>
                 </div>
                 
