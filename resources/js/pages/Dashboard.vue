@@ -86,82 +86,79 @@ onMounted(async () => {
     const { Chart, registerables } = await import('chart.js')
     Chart.register(...registerables)
 
-    // Monthly Target Doughnut Chart
 
-// Monthly Target Semi-circle Chart
-if (monthlyTargetChart.value) {
-    new Chart(monthlyTargetChart.value, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [75.55, 24.45],
-                backgroundColor: ['#3b82f6', '#e5e7eb'],
-                borderWidth: 0,
-                cutout: '85%',
-                circumference: 180,
-                rotation: 270
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: { enabled: false }
-            }
-        }
-    })
-}
-
-
-// Monthly Sales Bar Chart
-if (monthlySalesChart.value) {
-    const salesData = [50, 0, 400, 40, 700, 45, 30, 40, 35, 50, 40, 35]; // March has high value, others low
-    
-    new Chart(monthlySalesChart.value, {
-        type: 'bar',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                data: salesData,
-                backgroundColor: salesData.map((value, index) => index === 2 ? '#3b82f6' : '#e5e7eb'), // March blue, others light gray
-                borderRadius: 4,
-                barThickness: 20
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }
+    if (monthlyTargetChart.value) {
+        new Chart(monthlyTargetChart.value, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [75.55, 24.45],
+                    backgroundColor: ['#3b82f6', '#e5e7eb'],
+                    borderWidth: 0,
+                    cutout: '85%',
+                    circumference: 180,
+                    rotation: 270
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 800,
-                    ticks: {
-                        stepSize: 200,
-                        callback: function(value) {
-                            return value;
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        })
+    }
+
+    // Monthly Sales Bar Chart
+    if (monthlySalesChart.value) {
+        const salesData = [50, 0, 400, 40, 700, 45, 30, 40, 35, 50, 40, 35]; // March has high value, others low
+        
+        new Chart(monthlySalesChart.value, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    data: salesData,
+                    backgroundColor: salesData.map((value, index) => index === 2 ? '#3b82f6' : '#e5e7eb'), // March blue, others light gray
+                    borderRadius: 4,
+                    barThickness: 20
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 800,
+                        ticks: {
+                            stepSize: 200,
+                            callback: function(value) {
+                                return value;
+                            }
+                        },
+                        grid: { 
+                            display: true,
+                            color: '#f3f4f6'
                         }
                     },
-                    grid: { 
-                        display: true,
-                        color: '#f3f4f6'
-                    }
-                },
-                x: {
-                    grid: { display: false },
-                    ticks: {
-                        font: {
-                            size: 12
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
                         }
                     }
                 }
             }
-        }
-    })
-}
+        })
+    }
 
     // Statistics Line Chart
     if (statisticsChart.value) {
@@ -238,9 +235,7 @@ const getMarkerSize = (percentage) => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="space-y-6 p-5">
-            <!-- Top section with layout matching the image -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Left side - Customer and Orders cards side by side (2 columns) -->
                 <div class="lg:col-span-2 space-y-6">
                     <!-- Customer and Orders cards row -->
                     <div class="grid grid-cols-2 gap-6">
@@ -407,123 +402,122 @@ const getMarkerSize = (percentage) => {
 
             <!-- Bottom section with Demographics and Recent Orders -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Customer Demographics -->
-    <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <h3 class="text-lg font-semibold text-gray-900">Customer Demographics</h3>
-                <p class="text-sm text-gray-500">Number of customers based on country</p>
-            </div>
-        </div>
-        
-        <!-- World Map with SVG -->
-        <div class="h-60 bg-gray-50 rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
-            <svg viewBox="0 0 1000 500" class="w-full h-full">
-                <!-- World Map Background -->
-                <g fill="#e5e7eb" stroke="#d1d5db" stroke-width="0.5">
-                    <!-- North America -->
-                    <path d="M158 206L180 180L220 160L280 140L320 160L340 180L360 200L380 220L360 240L340 260L320 280L280 300L240 320L200 340L160 320L140 300L120 280L100 260L120 240L140 220Z"/>
-                    
-                    <!-- South America -->
-                    <path d="M280 320L300 340L320 380L340 420L360 460L340 480L320 460L300 440L280 420L260 400L240 380L220 360L240 340L260 320Z"/>
-                    
-                    <!-- Europe -->
-                    <path d="M480 180L520 160L560 140L580 160L600 180L580 200L560 220L540 240L520 220L500 200Z"/>
-                    
-                    <!-- Africa -->
-                    <path d="M520 280L540 300L560 340L580 380L600 420L580 460L560 440L540 420L520 400L500 380L480 360L460 340L480 320L500 300Z"/>
-                    
-                    <!-- Asia -->
-                    <path d="M680 200L720 180L780 160L840 140L880 160L920 180L940 200L920 220L900 240L880 260L860 280L840 300L820 280L800 260L780 240L760 220L740 200Z"/>
-                    
-                    <!-- Australia -->
-                    <path d="M780 380L820 360L860 380L880 400L860 420L820 440L780 420L760 400Z"/>
-                    
-                    <!-- Additional landmasses for more realistic look -->
-                    <path d="M400 120L440 100L480 120L460 140L420 160L400 140Z"/> <!-- Greenland -->
-                    <path d="M600 100L640 80L680 100L660 120L620 140L600 120Z"/> <!-- Northern Europe -->
-                    <path d="M160 100L200 80L240 100L220 120L180 140L160 120Z"/> <!-- Canada -->
-                </g>
-                
-                <!-- Dynamic Country Markers -->
-                <g>
-                    <circle cx="200" cy="150" r="6" fill="#3b82f6" class="cursor-pointer hover:opacity-80 transition-opacity"/>
-                    <circle cx="480" cy="140" r="5" fill="#60a5fa" class="cursor-pointer hover:opacity-80 transition-opacity"/>
-                    <circle cx="500" cy="130" r="5" fill="#60a5fa" class="cursor-pointer hover:opacity-80 transition-opacity"/>
-                    <circle cx="850" cy="160" r="4" fill="#93c5fd" class="cursor-pointer hover:opacity-80 transition-opacity"/>
-                    <circle cx="820" cy="380" r="4" fill="#93c5fd" class="cursor-pointer hover:opacity-80 transition-opacity"/>
-                </g>
-            </svg>
-        </div>
-        
-        <!-- Country Statistics -->
-        <div class="space-y-4">
-            <div v-for="demo in demographics" :key="demo.country" class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-6 h-4 rounded overflow-hidden flex-shrink-0">
-                        <div :class="demo.flagColor" class="w-full h-full"></div>
+                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Customer Demographics</h3>
+                            <p class="text-sm text-gray-500">Number of customers based on country</p>
+                        </div>
                     </div>
-                    <span class="text-sm font-medium text-gray-900">{{ demo.country }}</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-20 bg-gray-200 rounded-full h-2">
-                        <div :class="demo.barColor" class="h-2 rounded-full transition-all duration-300" :style="`width: ${demo.percentage}%`"></div>
+                    
+                    <!-- World Map with SVG -->
+                    <div class="h-60 bg-gray-50 rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
+                        <svg viewBox="0 0 1000 500" class="w-full h-full">
+                            <!-- World Map Background -->
+                            <g fill="#e5e7eb" stroke="#d1d5db" stroke-width="0.5">
+                                <!-- North America -->
+                                <path d="M158 206L180 180L220 160L280 140L320 160L340 180L360 200L380 220L360 240L340 260L320 280L280 300L240 320L200 340L160 320L140 300L120 280L100 260L120 240L140 220Z"/>
+                                
+                                <!-- South America -->
+                                <path d="M280 320L300 340L320 380L340 420L360 460L340 480L320 460L300 440L280 420L260 400L240 380L220 360L240 340L260 320Z"/>
+                                
+                                <!-- Europe -->
+                                <path d="M480 180L520 160L560 140L580 160L600 180L580 200L560 220L540 240L520 220L500 200Z"/>
+                                
+                                <!-- Africa -->
+                                <path d="M520 280L540 300L560 340L580 380L600 420L580 460L560 440L540 420L520 400L500 380L480 360L460 340L480 320L500 300Z"/>
+                                
+                                <!-- Asia -->
+                                <path d="M680 200L720 180L780 160L840 140L880 160L920 180L940 200L920 220L900 240L880 260L860 280L840 300L820 280L800 260L780 240L760 220L740 200Z"/>
+                                
+                                <!-- Australia -->
+                                <path d="M780 380L820 360L860 380L880 400L860 420L820 440L780 420L760 400Z"/>
+                                
+                                <!-- Additional landmasses for more realistic look -->
+                                <path d="M400 120L440 100L480 120L460 140L420 160L400 140Z"/> <!-- Greenland -->
+                                <path d="M600 100L640 80L680 100L660 120L620 140L600 120Z"/> <!-- Northern Europe -->
+                                <path d="M160 100L200 80L240 100L220 120L180 140L160 120Z"/> <!-- Canada -->
+                            </g>
+                            
+                            <!-- Dynamic Country Markers -->
+                            <g>
+                                <circle cx="200" cy="150" r="6" fill="#3b82f6" class="cursor-pointer hover:opacity-80 transition-opacity"/>
+                                <circle cx="480" cy="140" r="5" fill="#60a5fa" class="cursor-pointer hover:opacity-80 transition-opacity"/>
+                                <circle cx="500" cy="130" r="5" fill="#60a5fa" class="cursor-pointer hover:opacity-80 transition-opacity"/>
+                                <circle cx="850" cy="160" r="4" fill="#93c5fd" class="cursor-pointer hover:opacity-80 transition-opacity"/>
+                                <circle cx="820" cy="380" r="4" fill="#93c5fd" class="cursor-pointer hover:opacity-80 transition-opacity"/>
+                            </g>
+                        </svg>
                     </div>
-                    <span class="text-sm font-medium text-gray-900 w-8">{{ demo.percentage }}%</span>
+                    
+                    <!-- Country Statistics -->
+                    <div class="space-y-4">
+                        <div v-for="demo in demographics" :key="demo.country" class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-4 rounded overflow-hidden flex-shrink-0">
+                                    <div :class="demo.flagColor" class="w-full h-full"></div>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900">{{ demo.country }}</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-20 bg-gray-200 rounded-full h-2">
+                                    <div :class="demo.barColor" class="h-2 rounded-full transition-all duration-300" :style="`width: ${demo.percentage}%`"></div>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900 w-8">{{ demo.percentage }}%</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
     
-    <!-- Recent Orders -->
-    <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-lg font-semibold text-gray-900">Recent Orders</h3>
-            <div class="flex space-x-2">
-                <button class="text-sm text-gray-600 hover:text-gray-900">Filter</button>
-                <button class="text-sm text-gray-600 hover:text-gray-900">See all</button>
-            </div>
-        </div>
-        
-        <!-- Table Header -->
-        <div class="grid grid-cols-4 gap-4 pb-3 border-b border-gray-100 text-sm font-medium text-gray-500">
-            <span>Product</span>
-            <span>Company</span>
-            <span>Price</span>
-            <span>Status</span>
-        </div>
-        <!-- Orders List -->
-        <div class="space-y-2 mt-2">
-            <div v-for="order in recentOrders" :key="order.id" class="grid grid-cols-4 gap-4 items-center py-3 hover:bg-gray-50 rounded-lg px-2">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="order.productBg">
-                        <span class="text-xs font-medium" :class="order.productText">{{ order.productIcon }}</span>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-gray-900">{{ order.product }}</p>
-                        <p class="text-xs text-gray-500">{{ order.category }}</p>
+            <!-- Recent Orders -->
+            <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Recent Orders</h3>
+                    <div class="flex space-x-2">
+                        <button class="text-sm text-gray-600 hover:text-gray-900">Filter</button>
+                        <button class="text-sm text-gray-600 hover:text-gray-900">See all</button>
                     </div>
                 </div>
-                <div>
-                    <p class="text-xs font-medium text-gray-900">{{ order.company }}</p>
+                
+                <!-- Table Header -->
+                <div class="grid grid-cols-4 gap-4 pb-3 border-b border-gray-100 text-sm font-medium text-gray-500">
+                    <span>Product</span>
+                    <span>Company</span>
+                    <span>Price</span>
+                    <span>Status</span>
                 </div>
-                <div>
-                    <p class="text-xs font-medium text-gray-900">${{ order.price }}</p>
-                </div>
-                <div>
-                    <span :class="[
-                        order.status === 'Delivered' ? 'bg-green-100 text-green-800' : 
-                        order.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
-                        'bg-red-100 text-red-800',
-                        'inline-flex px-2 py-1 text-xs font-medium rounded-full'
-                    ]">
-                        {{ order.status }}
-                    </span>
+                <!-- Orders List -->
+                <div class="space-y-2 mt-2">
+                    <div v-for="order in recentOrders" :key="order.id" class="grid grid-cols-4 gap-4 items-center py-3 hover:bg-gray-50 rounded-lg px-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="order.productBg">
+                                <span class="text-xs font-medium" :class="order.productText">{{ order.productIcon }}</span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-medium text-gray-900">{{ order.product }}</p>
+                                <p class="text-xs text-gray-500">{{ order.category }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-gray-900">{{ order.company }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-gray-900">${{ order.price }}</p>
+                        </div>
+                        <div>
+                            <span :class="[
+                                order.status === 'Delivered' ? 'bg-green-100 text-green-800' : 
+                                order.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
+                                'bg-red-100 text-red-800',
+                                'inline-flex px-2 py-1 text-xs font-medium rounded-full'
+                            ]">
+                                {{ order.status }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 
         </div>
