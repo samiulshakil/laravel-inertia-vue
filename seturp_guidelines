@@ -1,0 +1,19 @@
+Before starting, make sure the following are installed:
+
+PHP >= 8.2
+
+Composer
+
+Node.js >= 18
+
+Clone the project
+
+Need composer and npm install
+
+Need .env file generate means copy .env_example to .env then php artisan key:generate should application key generate.
+
+Run the dev server and write command to your project --->>> composer run dev
+
+
+project route: http://127.0.0.1:8000/dashboard and http://127.0.0.1:8000/login
+
